@@ -5,8 +5,9 @@ import { LampContainer } from '@/components/ui/lamp'
 
 const Hero = () => {
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen bg-black text-white text-center  bg-gradient-to-bl from-[#0f1a2f] to-transparent ">
-        <LampContainer>
+    <section className=" flex flex-col items-center justify-center h-screen bg-black text-white text-center  bg-gradient-to-bl from-[#0f1a2f] to-transparent ">
+      <div className="w-full position-fixed"   >
+         <LampContainer>
       <motion.h1
         initial={{ opacity: 0.5, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,14 +24,16 @@ const Hero = () => {
       <br />
       
       <motion.h1
-      initial={{ opacity: 0, y: 30 }}
-      animate ={{opacity : 1 , y : 0}}
-      transition={{duration : 1 , ease : 'easeOut'}}
+      initial={{ opacity: 0.5, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{duration : 0.8 ,delay: 0.3, ease : 'easeInOut'}}
       className="text-5xl md:text-8xl font-extrabold text-center bg-gradient-to-r from-cyan-500 via-slate-300 to-cyan-500 text-transparent bg-clip-text"
       >
-        Ravi Benwial
+        Ravi Benwial 
       </motion.h1>
     </LampContainer>
+      </div>
+       
     </section>
   );
 };

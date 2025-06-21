@@ -7,7 +7,6 @@ import { RainbowButton } from '@/components/magicui/rainbow-button';
 const Top = () => {
   return (
     <header className="sticky top-4 z-50 w-full flex justify-center px-35">
-        
       <div className="w-full max-w-7xl flex items-center justify-between px-2 py-2 rounded-full border border-[#3b3b3b] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#0f1b1c] via-black to-black backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.05)]">
         <div className="flex items-center gap-2">
           <Image
