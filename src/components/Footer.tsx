@@ -1,11 +1,14 @@
 "use client"
 import React, { useRef } from 'react'
 import { IconHome, IconBriefcase , IconBrandGithub, IconBrandLinkedin, IconBrandX, IconMail } from '@tabler/icons-react';
-import { motion, useMotionValue, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { MotionValue } from 'motion/react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 
+
+/*************  ✨ Windsurf Command 🌟  *************/
 const Footer = () => {
   return (
     <div className='bg-white h-screen w-full relative'>
@@ -13,6 +16,7 @@ const Footer = () => {
     </div>
   )
 }
+/*******  ffc2d324-1b4c-4e1d-b299-4cd8793bf388  *******/
 
 export default Footer;
 
@@ -81,12 +85,32 @@ export const IconContainer = ({el,mouseX} : {el : Link;mouseX : MotionValue<numb
     }
   );
 
-  let width = useTransform(distance,[-100,0,100],[40,80,40]);
-  let height = useTransform(distance,[-100,0,100],[40,80,40]);
-  let rotate = useTransform(distance,[-100,0,100],[-20,0,20]);
+  let widthTransform = useTransform(distance,[-150,0,150],[40,80,40]);
+  let heightTransform = useTransform(distance,[-150,0,150],[40,80,40]);
+
+  let widthIcon = useTransform(distance,[-150,0,150],[20,40,20]);
+  let heightIcon = useTransform(distance ,[-150,0,150],[20,40,20]);
+
+  let width = useSpring(widthTransform ,{
+    stiffness : 150,
+    damping : 12,
+    mass : 0.1
+  });
+
+  let height = useSpring(heightTransform ,{
+    stiffness : 150,
+    damping : 12,
+    mass : 0.1
+  });
+
+
+   const [hovered,setHovered] = useState(false);
 
   return (
-    <Link href={el.href}>
+    <Link href={el.href}
+    onMouseEnter={()=>setHovered(true)}
+    onMouseLeave={()=>setHovered(false)}
+    >
      <motion.div
      ref = {ref}
      style ={{
@@ -94,8 +118,44 @@ export const IconContainer = ({el,mouseX} : {el : Link;mouseX : MotionValue<numb
       height : height,
       
      }}
-      className='bg-neutral-700 h-12 w-12 flex items-center justify-center rounded-md'>
-      {el.icon}
+      className='relative bg-neutral-700 h-12 w-12 flex items-center justify-center rounded-full'>
+        <AnimatePresence>
+        {hovered && (
+          <motion.div
+          initial = {{
+            opacity : 0,
+            y : 10
+          }}
+
+          animate = {{
+            opacity : 1,
+            y : 0
+          }}
+
+          exit = {{
+            opacity : 0,
+            y : 2
+          }}
+          
+          transition={{
+            duration : 0.3,
+            ease : 'easeInOut'
+          }}
+
+           className='absolute left-1/2 -translate-x-1/2 px-2 py-0.5 whitespace-pre text-xs -top-8 bg-neutral-100 rounded-md text-neutral-500'>
+            {el.title}
+          </motion.div>
+        )}
+        </AnimatePresence>
+        <motion.div className='flex items-center justify-cneter ' 
+        ref = {ref} 
+        style={{
+          height : heightIcon,
+          width : widthIcon
+        }} >
+           {el.icon}
+        </motion.div>
+     
       </motion.div>
      </Link>
   )
